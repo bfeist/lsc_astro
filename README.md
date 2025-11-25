@@ -32,6 +32,7 @@ Plus samples from the Soviet Luna 16, 20, and 24 missions.
 ├── public/              # Static assets (favicons, images)
 ├── src/
 │   ├── assets/         # Images embedded in documentation
+│   ├── components/     # Custom Starlight component overrides
 │   ├── content/
 │   │   └── docs/       # Documentation organized by mission
 │   │       ├── index.md
@@ -96,4 +97,4 @@ Documentation content sourced from NASA and the scientific community's decades o
 
 ---
 
-*"We came in Peace, for all Mankind"* - Apollo 11 Plaque
+_"We came in Peace, for all Mankind"_ - Apollo 11 Plaque

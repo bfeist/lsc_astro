@@ -13,6 +13,12 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "NASA - Lunar Sample Compendium",
+      // Override default Starlight components for custom left nav layout
+      components: {
+        Sidebar: "./src/components/Sidebar.astro",
+        PageSidebar: "./src/components/PageSidebar.astro",
+        MobileMenuToggle: "./src/components/MobileMenuToggle.astro",
+      },
       social: [
         {
           icon: "github",

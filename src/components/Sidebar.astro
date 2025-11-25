@@ -1,0 +1,45 @@
+---
+import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
+import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
+import MobileMenuFooter from '@astrojs/starlight/components/MobileMenuFooter.astro';
+
+const { sidebar } = Astro.locals.starlightRoute;
+
+// Flatten the sidebar structure - remove folder groupings, keep only the document links
+function flattenSidebar(items: any[]): any[] {
+	const flattened: any[] = [];
+	
+	for (const item of items) {
+		if (item.type === 'group' && item.entries) {
+			// For groups, recurse into entries
+			flattened.push(...flattenSidebar(item.entries));
+		} else if (item.type === 'link') {
+			// Keep links as-is
+			flattened.push(item);
+		}
+	}
+	
+	return flattened;
+}
+
+// Process sidebar to flatten nested folders
+const processedSidebar = sidebar.map((item: any) => {
+	if (item.type === 'group' && item.entries) {
+		// Keep mission-level groups (Apollo 11, Apollo 12, etc.)
+		// but flatten their contents
+		return {
+			...item,
+			entries: flattenSidebar(item.entries)
+		};
+	}
+	return item;
+});
+---
+
+<SidebarPersister>
+	<SidebarSublist sublist={processedSidebar} />
+</SidebarPersister>
+
+<div class="md:sl-hidden">
+	<MobileMenuFooter />
+</div>
