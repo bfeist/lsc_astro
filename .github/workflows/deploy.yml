@@ -41,9 +41,11 @@ jobs:
 
       - name: Deploy to Dreamhost via rsync
         run: |
-          rsync -avz --delete \
+          echo "Starting deployment..."
+          rsync -rz --delete --stats \
             -e "ssh -i ~/.ssh/deploy_key -p ${{ vars.DREAMHOST_PORT }} -o StrictHostKeyChecking=no" \
             dist/ ${{ vars.DREAMHOST_USER }}@${{ vars.DREAMHOST_HOST }}:${{ vars.DREAMHOST_TARGET_DIR }}
+          echo "✓ Deployment complete"
 
       - name: Verify deployment
         run: |
